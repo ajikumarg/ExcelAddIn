@@ -29,7 +29,7 @@ namespace Excel2016AddIn
 
                 //Add a Sheet to print out the Named Ranges
                 Excel.Worksheet newWorksheet;
-                newWorksheet = WorkbookExtensions.GetWorksheetByName(Application.ActiveWorkbook, "NamedRanges");
+                newWorksheet = WorkbookExtensions.GetWorksheetByName("NamedRanges");
 
                 //newWorksheet = (Excel.Worksheet)this.Application.Worksheets.Add();
                 //newWorksheet.Name = "NamedRanges";
