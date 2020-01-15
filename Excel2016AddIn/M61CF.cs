@@ -19,15 +19,28 @@ namespace Excel2016AddIn
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+            string DDName = "DataDictionary";
+            WorkbookExtensions.DataDictionary = DDName;
+
             //Get M61 Data Dictionary
-            DataTable m61DataDict;
-            m61DataDict=WorkbookExtensions.GetM61DataDictionary("DataDictionary");
+            //DataTable m61DataDict;
+            //m61DataDict = WorkbookExtensions.GetM61DataDictionary(DDName);
 
             //Globals.ThisAddIn.PublishNames();
 
             //Read Sizer Data
             DataSet dsSizer = new DataSet("Sizer");
+            List<string> sizerTables = WorkbookExtensions.GetSizerNamedRanges(DDName);
+
+            WorkbookExtensions.LoadSizerTables(sizerTables, dsSizer);
+
+
+            //Serielize the DataSet to JSON
+            string JsonDeal = M61AddInJSONUtils.SerielizeToJSON(dsSizer.Tables[0]);
+            M61AddInJSONUtils.WriteJsonToFile(JsonDeal);
+
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

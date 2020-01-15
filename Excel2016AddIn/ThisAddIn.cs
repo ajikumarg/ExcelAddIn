@@ -22,6 +22,7 @@ namespace Excel2016AddIn
         public void PublishNames()
         {
             int iRow = 2;
+            System.Text.RegularExpressions.Regex regEx = new System.Text.RegularExpressions.Regex("M61.Table");
 
             try
             {
@@ -31,38 +32,35 @@ namespace Excel2016AddIn
                 Excel.Worksheet newWorksheet;
                 newWorksheet = WorkbookExtensions.GetWorksheetByName("NamedRanges");
 
-                //newWorksheet = (Excel.Worksheet)this.Application.Worksheets.Add();
-                //newWorksheet.Name = "NamedRanges";
-
                 //Set as Activesheet
                 newWorksheet.Activate();
-                //Excel.Names names = this.Application.ActiveWorkbook.Names;
+
                 //var names = (IEnumerable<Excel.Names>)this.Application.ActiveWorkbook.Names;
-                //var namesfiltered = names.Where()
+                //var namesfiltered = names.Where(x => x..StartsWith(regEx)).ToList();
+                //var namesfiltered = FilterByM61InputTables(names, regEx);
 
 
-                foreach (Excel.Name name in this.Application.ActiveWorkbook.Worksheets[1].Names)
+                foreach (Excel.Name name in this.Application.ActiveWorkbook.Names)
                 {
-
-                    //Console.WriteLine(String.Format(
-                    //"{0} refers to {1}", name.Name, name.RefersTo));
-                    newWorksheet.Range["A" + iRow].Value2 = String.Format("{0} refers to {1}", name.Name, name.RefersTo);
+                    //Console.WriteLine(String.Format("{0} refers to {1}", name.Name, name.RefersTo));
+                    newWorksheet.Range["A" + iRow].Value2 = String.Format("{0}", name.Name);
                     iRow++;
-
                 }
             } catch(Exception e)
             {
-                Application.StatusBar = e.Message;
-                Application.ActiveWorkbook.Close(false);
+                //Application.StatusBar = e.Message;
+                //Application.ActiveWorkbook.Close(false);
             }
             finally
             {
-                Application.ActiveWorkbook.Close(true);
             }
 
         }
 
-
+        public IEnumerable<Excel.Name> FilterByM61InputTables(IEnumerable<Excel.Name> tables, string regEx)
+        {
+            return tables.Where(x => x.Name.StartsWith(regEx)).ToList();
+        }
 
         #region VSTO generated code
 

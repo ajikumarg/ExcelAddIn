@@ -44,9 +44,17 @@
             this.radFullyExtended = new System.Windows.Forms.RadioButton();
             this.radInitialMaturity = new System.Windows.Forms.RadioButton();
             this.radDefault = new System.Windows.Forms.RadioButton();
+            this.grpCalc = new System.Windows.Forms.GroupBox();
+            this.radCalc = new System.Windows.Forms.RadioButton();
+            this.radCalcNo = new System.Windows.Forms.RadioButton();
+            this.radSaveNo = new System.Windows.Forms.RadioButton();
+            this.radSaveYes = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grpCalcMode.SuspendLayout();
             this.grpCapStackType.SuspendLayout();
             this.grpScenario.SuspendLayout();
+            this.grpCalc.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpCalcMode
@@ -57,9 +65,9 @@
             this.grpCalcMode.Controls.Add(this.radGAAPBasisProspective);
             this.grpCalcMode.Controls.Add(this.radCFOnlly);
             this.grpCalcMode.Location = new System.Drawing.Point(4, 13);
-            this.grpCalcMode.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.grpCalcMode.Margin = new System.Windows.Forms.Padding(1);
             this.grpCalcMode.Name = "grpCalcMode";
-            this.grpCalcMode.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.grpCalcMode.Padding = new System.Windows.Forms.Padding(1);
             this.grpCalcMode.Size = new System.Drawing.Size(217, 205);
             this.grpCalcMode.TabIndex = 0;
             this.grpCalcMode.TabStop = false;
@@ -69,7 +77,7 @@
             // 
             this.radCFPVBasisInception.AutoSize = true;
             this.radCFPVBasisInception.Location = new System.Drawing.Point(18, 165);
-            this.radCFPVBasisInception.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radCFPVBasisInception.Margin = new System.Windows.Forms.Padding(1);
             this.radCFPVBasisInception.Name = "radCFPVBasisInception";
             this.radCFPVBasisInception.Size = new System.Drawing.Size(145, 17);
             this.radCFPVBasisInception.TabIndex = 4;
@@ -81,7 +89,7 @@
             // 
             this.radCFPVBasisProspective.AutoSize = true;
             this.radCFPVBasisProspective.Location = new System.Drawing.Point(18, 131);
-            this.radCFPVBasisProspective.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radCFPVBasisProspective.Margin = new System.Windows.Forms.Padding(1);
             this.radCFPVBasisProspective.Name = "radCFPVBasisProspective";
             this.radCFPVBasisProspective.Size = new System.Drawing.Size(157, 17);
             this.radCFPVBasisProspective.TabIndex = 3;
@@ -93,7 +101,7 @@
             // 
             this.radCFGAAPBasisInception.AutoSize = true;
             this.radCFGAAPBasisInception.Location = new System.Drawing.Point(18, 96);
-            this.radCFGAAPBasisInception.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radCFGAAPBasisInception.Margin = new System.Windows.Forms.Padding(1);
             this.radCFGAAPBasisInception.Name = "radCFGAAPBasisInception";
             this.radCFGAAPBasisInception.Size = new System.Drawing.Size(160, 17);
             this.radCFGAAPBasisInception.TabIndex = 2;
@@ -105,7 +113,7 @@
             // 
             this.radGAAPBasisProspective.AutoSize = true;
             this.radGAAPBasisProspective.Location = new System.Drawing.Point(18, 64);
-            this.radGAAPBasisProspective.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radGAAPBasisProspective.Margin = new System.Windows.Forms.Padding(1);
             this.radGAAPBasisProspective.Name = "radGAAPBasisProspective";
             this.radGAAPBasisProspective.Size = new System.Drawing.Size(172, 17);
             this.radGAAPBasisProspective.TabIndex = 1;
@@ -117,7 +125,7 @@
             // 
             this.radCFOnlly.AutoSize = true;
             this.radCFOnlly.Location = new System.Drawing.Point(18, 34);
-            this.radCFOnlly.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radCFOnlly.Margin = new System.Windows.Forms.Padding(1);
             this.radCFOnlly.Name = "radCFOnlly";
             this.radCFOnlly.Size = new System.Drawing.Size(98, 17);
             this.radCFOnlly.TabIndex = 0;
@@ -128,7 +136,7 @@
             // btnRun
             // 
             this.btnRun.Location = new System.Drawing.Point(480, 418);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(1);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(92, 39);
             this.btnRun.TabIndex = 1;
@@ -139,7 +147,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(594, 418);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(1);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 39);
             this.btnCancel.TabIndex = 2;
@@ -152,9 +160,9 @@
             this.grpCapStackType.Controls.Add(this.radPhantom);
             this.grpCapStackType.Controls.Add(this.radLegal);
             this.grpCapStackType.Location = new System.Drawing.Point(4, 231);
-            this.grpCapStackType.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.grpCapStackType.Margin = new System.Windows.Forms.Padding(1);
             this.grpCapStackType.Name = "grpCapStackType";
-            this.grpCapStackType.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.grpCapStackType.Padding = new System.Windows.Forms.Padding(1);
             this.grpCapStackType.Size = new System.Drawing.Size(217, 96);
             this.grpCapStackType.TabIndex = 3;
             this.grpCapStackType.TabStop = false;
@@ -164,7 +172,7 @@
             // 
             this.radPhantom.AutoSize = true;
             this.radPhantom.Location = new System.Drawing.Point(18, 62);
-            this.radPhantom.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radPhantom.Margin = new System.Windows.Forms.Padding(1);
             this.radPhantom.Name = "radPhantom";
             this.radPhantom.Size = new System.Drawing.Size(67, 17);
             this.radPhantom.TabIndex = 1;
@@ -176,7 +184,7 @@
             // 
             this.radLegal.AutoSize = true;
             this.radLegal.Location = new System.Drawing.Point(18, 32);
-            this.radLegal.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radLegal.Margin = new System.Windows.Forms.Padding(1);
             this.radLegal.Name = "radLegal";
             this.radLegal.Size = new System.Drawing.Size(51, 17);
             this.radLegal.TabIndex = 0;
@@ -191,9 +199,9 @@
             this.grpScenario.Controls.Add(this.radInitialMaturity);
             this.grpScenario.Controls.Add(this.radDefault);
             this.grpScenario.Location = new System.Drawing.Point(3, 333);
-            this.grpScenario.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.grpScenario.Margin = new System.Windows.Forms.Padding(1);
             this.grpScenario.Name = "grpScenario";
-            this.grpScenario.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.grpScenario.Padding = new System.Windows.Forms.Padding(1);
             this.grpScenario.Size = new System.Drawing.Size(217, 134);
             this.grpScenario.TabIndex = 4;
             this.grpScenario.TabStop = false;
@@ -203,7 +211,7 @@
             // 
             this.radCurrentMaturity.AutoSize = true;
             this.radCurrentMaturity.Location = new System.Drawing.Point(18, 106);
-            this.radCurrentMaturity.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radCurrentMaturity.Margin = new System.Windows.Forms.Padding(1);
             this.radCurrentMaturity.Name = "radCurrentMaturity";
             this.radCurrentMaturity.Size = new System.Drawing.Size(99, 17);
             this.radCurrentMaturity.TabIndex = 3;
@@ -215,7 +223,7 @@
             // 
             this.radFullyExtended.AutoSize = true;
             this.radFullyExtended.Location = new System.Drawing.Point(18, 81);
-            this.radFullyExtended.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radFullyExtended.Margin = new System.Windows.Forms.Padding(1);
             this.radFullyExtended.Name = "radFullyExtended";
             this.radFullyExtended.Size = new System.Drawing.Size(181, 17);
             this.radFullyExtended.TabIndex = 2;
@@ -226,8 +234,8 @@
             // radInitialMaturity
             // 
             this.radInitialMaturity.AutoSize = true;
-            this.radInitialMaturity.Location = new System.Drawing.Point(18, 60);
-            this.radInitialMaturity.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radInitialMaturity.Location = new System.Drawing.Point(19, 57);
+            this.radInitialMaturity.Margin = new System.Windows.Forms.Padding(1);
             this.radInitialMaturity.Name = "radInitialMaturity";
             this.radInitialMaturity.Size = new System.Drawing.Size(89, 17);
             this.radInitialMaturity.TabIndex = 1;
@@ -239,7 +247,7 @@
             // 
             this.radDefault.AutoSize = true;
             this.radDefault.Location = new System.Drawing.Point(18, 32);
-            this.radDefault.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.radDefault.Margin = new System.Windows.Forms.Padding(1);
             this.radDefault.Name = "radDefault";
             this.radDefault.Size = new System.Drawing.Size(59, 17);
             this.radDefault.TabIndex = 0;
@@ -247,17 +255,85 @@
             this.radDefault.Text = "Default";
             this.radDefault.UseVisualStyleBackColor = true;
             // 
+            // grpCalc
+            // 
+            this.grpCalc.Controls.Add(this.radCalcNo);
+            this.grpCalc.Controls.Add(this.radCalc);
+            this.grpCalc.Location = new System.Drawing.Point(493, 13);
+            this.grpCalc.Name = "grpCalc";
+            this.grpCalc.Size = new System.Drawing.Size(200, 62);
+            this.grpCalc.TabIndex = 5;
+            this.grpCalc.TabStop = false;
+            this.grpCalc.Text = "Calculate";
+            // 
+            // radCalc
+            // 
+            this.radCalc.AutoSize = true;
+            this.radCalc.Location = new System.Drawing.Point(63, 32);
+            this.radCalc.Name = "radCalc";
+            this.radCalc.Size = new System.Drawing.Size(43, 17);
+            this.radCalc.TabIndex = 1;
+            this.radCalc.TabStop = true;
+            this.radCalc.Text = "Yes";
+            this.radCalc.UseVisualStyleBackColor = true;
+            // 
+            // radCalcNo
+            // 
+            this.radCalcNo.AutoSize = true;
+            this.radCalcNo.Location = new System.Drawing.Point(138, 32);
+            this.radCalcNo.Name = "radCalcNo";
+            this.radCalcNo.Size = new System.Drawing.Size(39, 17);
+            this.radCalcNo.TabIndex = 2;
+            this.radCalcNo.TabStop = true;
+            this.radCalcNo.Text = "No";
+            this.radCalcNo.UseVisualStyleBackColor = true;
+            // 
+            // radSaveNo
+            // 
+            this.radSaveNo.AutoSize = true;
+            this.radSaveNo.Location = new System.Drawing.Point(138, 19);
+            this.radSaveNo.Name = "radSaveNo";
+            this.radSaveNo.Size = new System.Drawing.Size(39, 17);
+            this.radSaveNo.TabIndex = 5;
+            this.radSaveNo.TabStop = true;
+            this.radSaveNo.Text = "No";
+            this.radSaveNo.UseVisualStyleBackColor = true;
+            // 
+            // radSaveYes
+            // 
+            this.radSaveYes.AutoSize = true;
+            this.radSaveYes.Location = new System.Drawing.Point(63, 19);
+            this.radSaveYes.Name = "radSaveYes";
+            this.radSaveYes.Size = new System.Drawing.Size(43, 17);
+            this.radSaveYes.TabIndex = 4;
+            this.radSaveYes.TabStop = true;
+            this.radSaveYes.Text = "Yes";
+            this.radSaveYes.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radSaveNo);
+            this.groupBox1.Controls.Add(this.radSaveYes);
+            this.groupBox1.Location = new System.Drawing.Point(493, 81);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 52);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Save";
+            // 
             // M61CF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 467);
+            this.ClientSize = new System.Drawing.Size(707, 504);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpCalc);
             this.Controls.Add(this.grpScenario);
             this.Controls.Add(this.grpCapStackType);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.grpCalcMode);
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "M61CF";
             this.Text = "M61 CF Parameters";
             this.grpCalcMode.ResumeLayout(false);
@@ -266,6 +342,10 @@
             this.grpCapStackType.PerformLayout();
             this.grpScenario.ResumeLayout(false);
             this.grpScenario.PerformLayout();
+            this.grpCalc.ResumeLayout(false);
+            this.grpCalc.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -288,5 +368,11 @@
         private System.Windows.Forms.RadioButton radFullyExtended;
         private System.Windows.Forms.RadioButton radInitialMaturity;
         private System.Windows.Forms.RadioButton radDefault;
+        private System.Windows.Forms.GroupBox grpCalc;
+        private System.Windows.Forms.RadioButton radCalcNo;
+        private System.Windows.Forms.RadioButton radCalc;
+        private System.Windows.Forms.RadioButton radSaveNo;
+        private System.Windows.Forms.RadioButton radSaveYes;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

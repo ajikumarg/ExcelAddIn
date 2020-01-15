@@ -14,6 +14,29 @@ namespace Excel2016AddIn
 {
     public static class WorkbookExtensions
     {
+        #region Property
+        private static string sheetNameDataDictionary;
+        public static string DataDictionary
+        {
+            get => sheetNameDataDictionary;
+            set => sheetNameDataDictionary = value;
+        }
+
+        private static string sheetNameM61Input;
+        public static string M61Input
+        {
+            get => sheetNameM61Input;
+            set => sheetNameM61Input = value;
+        }
+        #endregion Property
+
+
+        #region Utility Functions
+        public static IEnumerable<Excel.Name> FilterByM61InputTables(IEnumerable<Excel.Name> tables, string regEx)
+        {
+            return tables.Where(x => x.Name.StartsWith(regEx)).ToList();
+        }
+
         //Return the Worksheet if it exists, otherwise create a new worksheet and return it.
         public static Excel.Worksheet GetWorksheetByName(string name)
         {
@@ -23,14 +46,23 @@ namespace Excel2016AddIn
             worksheet = workbook.Worksheets.OfType<Excel.Worksheet>().FirstOrDefault(ws => ws.Name == name);
 
             if (worksheet == null)
+            {
                 worksheet = workbook.Worksheets.Add();
+                worksheet.Name = name;
+            }
+            else
+            {
+                worksheet.UsedRange.Clear();
+                worksheet.UsedRange.ClearContents();
+            }
+
+
             return worksheet;
         }
 
         //Walk-Through the range and construct a DataTable
         public static DataTable ExcelRangeToDataTable(Excel.Range range)
         {
-            Excel.Worksheet ws = Globals.ThisAddIn.Application.ActiveSheet;
             DataTable table = new DataTable();
             //var cells = range.Cells;
 
@@ -49,62 +81,81 @@ namespace Excel2016AddIn
             for (int r = 2; r <= rows; r++)
             {
                 row = table.NewRow();
-                for (int c = 1; c < cols; c++)
-                    row[c] = range.Cells[r, c].Value2;
+                for (int c = 1; c <= cols; c++)
+                    row[c-1] = range.Cells[r, c].Value2;
+                table.Rows.Add(row);
             }
 
             return table;
         }
 
-        public static DataTable GetDataDictionary(string path, string sheetName)
-        {
-            DataTable table = new DataTable();
-            using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read))
-            {
-                IExcelDataReader reader = ExcelDataReader.ExcelReaderFactory.CreateReader(fileStream);
-            }
-            return table;
-        }
+        #endregion Utilities
 
-        public static DataTable GetM61DataDictionary(string sheetName)
+        public static DataTable GetM61DataDictionary(string rangeDataDictionary)
         {
+            //Method 1
             Excel.Workbook wb = Globals.ThisAddIn.Application.ActiveWorkbook;
-            Excel.Worksheet sheet = wb.Worksheets[sheetName];
-
-            #region ListObject
-            //foreach (Excel.ListObject lo in sheet.ListObjects)
-            //{
-            //    Excel.Range srcRow = lo.DataBodyRange;
-            //    Excel.ListRow oLastRow = wb.Worksheets["Sheet2"].ListObjects["table1"].ListRows.Add();
-            //    srcRow.Copy();
-            //    oLastRow.Range.PasteSpecial(Excel.XlPasteType.xlPasteValues);
-            //}
-            #endregion 
-
-            //Add a Sheet to print out the Named Ranges
-            Excel.Worksheet worksheetdict=Globals.ThisAddIn.Application.ActiveWorkbook.Sheets["DataDictionary"];
-            Excel.Range range = worksheetdict.Range["DataDictionary"];
-
-            //Copy-Paste to  new Worksheet to doublecheck values
-            Excel.Worksheet worksheetnew = WorkbookExtensions.GetWorksheetByName("DataDictionary2");
-            
-            worksheetnew.Range["A1"].Value = range.Value;
+            Excel.Worksheet worksheetdict=Globals.ThisAddIn.Application.ActiveWorkbook.Sheets[DataDictionary];
+            //Excel.Range range = worksheetdict.Range["DataDictionary"];
+            Excel.Range range = worksheetdict.Range[rangeDataDictionary];
 
             //Convert to DataTable 
             return ExcelRangeToDataTable(range);
+            
+            ////Method 2
+            //foreach (Excel.Name n in wb.Names)
+            //    if (n.Name.ToString() == rangeDataDictionary)
+            //        range = n.RefersToRange;
+
+            ////Convert to DataTable 
+            //return ExcelRangeToDataTable(range);
         }
 
-        public static Dictionary<string, string> GetNamedRanges(string sheetName)
+
+        public static List<string> GetSizerNamedRanges(string rangeDataDictionary)
         {
-            Dictionary<string, string> M61Names = new Dictionary<string, string>();
-            DataTable dtDict = GetM61DataDictionary(sheetName);
+            //string sheetName = "DataDictionary";
+            string TableName = string.Empty;
+            List<string> m61NamedRanges = new List<string>();
 
-            foreach (DataRow r in dtDict.Rows)
+            DataTable dtDict = GetM61DataDictionary(rangeDataDictionary);
+
+            try
             {
-                if ((int)r["Required"] == 1)
-                    M61Names.Add(r["TableName"].ToString(),r["FieldName"].ToString());
+                foreach (DataRow row in dtDict.Rows)
+                {
+                    TableName = row["TableName"].ToString();
+                    if(!m61NamedRanges.Contains(TableName))
+                        m61NamedRanges.Add(row["TableName"].ToString());
+                }
             }
-            return M61Names;
+            catch (ArgumentException)
+            {
+                //Console.WriteLine("An element with Key = \"txt\" already exists.");
+            }
+
+            return m61NamedRanges;
         }
+
+
+        public static void LoadSizerTables(List<string> listTables,DataSet dsSizer)
+        {
+            DataTable table;
+
+            Excel.Names SizerNamedRanges = Globals.ThisAddIn.Application.ActiveWorkbook.Names;
+
+            foreach (Excel.Name name in SizerNamedRanges)
+            {
+                string val = name.Name;
+                if (listTables.Contains(name.Name.ToString()))
+                {
+                    table = ExcelRangeToDataTable(name.RefersToRange);
+                    table.TableName = name.Name.ToString();
+                    dsSizer.Tables.Add(table);
+                }
+            }
+        }
+
+
     }
 }
