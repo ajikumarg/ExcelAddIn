@@ -23,8 +23,18 @@ namespace Excel2016AddIn
             WorkbookExtensions.DataDictionary = DDName;
 
             //Get M61 Data Dictionary
-            //DataTable m61DataDict;
+            DataTable m61DataDict;
             //m61DataDict = WorkbookExtensions.GetM61DataDictionary(DDName);
+            m61DataDict = M61AddInJSONUtils.GetM61DataDictionary();
+
+            var reqTables = from names in m61DataDict.AsEnumerable() 
+                           where names["Required"] == "1" 
+                           select names;
+
+            foreach (DataRow reqTable in reqTables)
+            {
+
+            }
 
             //Globals.ThisAddIn.PublishNames();
 
