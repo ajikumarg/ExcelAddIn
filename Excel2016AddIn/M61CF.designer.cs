@@ -45,16 +45,22 @@
             this.radInitialMaturity = new System.Windows.Forms.RadioButton();
             this.radDefault = new System.Windows.Forms.RadioButton();
             this.grpCalc = new System.Windows.Forms.GroupBox();
-            this.radCalc = new System.Windows.Forms.RadioButton();
             this.radCalcNo = new System.Windows.Forms.RadioButton();
+            this.radCalc = new System.Windows.Forms.RadioButton();
             this.radSaveNo = new System.Windows.Forms.RadioButton();
-            this.radSaveYes = new System.Windows.Forms.RadioButton();
+            this.radSave = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpCFOutput = new System.Windows.Forms.GroupBox();
+            this.chkTransaction = new System.Windows.Forms.CheckBox();
+            this.chkPeriodic = new System.Windows.Forms.CheckBox();
+            this.lstFieldsTxn = new System.Windows.Forms.ListBox();
+            this.lstFieldsPeriodic = new System.Windows.Forms.ListBox();
             this.grpCalcMode.SuspendLayout();
             this.grpCapStackType.SuspendLayout();
             this.grpScenario.SuspendLayout();
             this.grpCalc.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.grpCFOutput.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpCalcMode
@@ -135,7 +141,7 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(480, 418);
+            this.btnRun.Location = new System.Drawing.Point(422, 428);
             this.btnRun.Margin = new System.Windows.Forms.Padding(1);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(92, 39);
@@ -146,7 +152,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(594, 418);
+            this.btnCancel.Location = new System.Drawing.Point(536, 428);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(1);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(91, 39);
@@ -259,23 +265,12 @@
             // 
             this.grpCalc.Controls.Add(this.radCalcNo);
             this.grpCalc.Controls.Add(this.radCalc);
-            this.grpCalc.Location = new System.Drawing.Point(493, 13);
+            this.grpCalc.Location = new System.Drawing.Point(225, 13);
             this.grpCalc.Name = "grpCalc";
             this.grpCalc.Size = new System.Drawing.Size(200, 62);
             this.grpCalc.TabIndex = 5;
             this.grpCalc.TabStop = false;
             this.grpCalc.Text = "Calculate";
-            // 
-            // radCalc
-            // 
-            this.radCalc.AutoSize = true;
-            this.radCalc.Location = new System.Drawing.Point(63, 32);
-            this.radCalc.Name = "radCalc";
-            this.radCalc.Size = new System.Drawing.Size(43, 17);
-            this.radCalc.TabIndex = 1;
-            this.radCalc.TabStop = true;
-            this.radCalc.Text = "Yes";
-            this.radCalc.UseVisualStyleBackColor = true;
             // 
             // radCalcNo
             // 
@@ -288,6 +283,17 @@
             this.radCalcNo.Text = "No";
             this.radCalcNo.UseVisualStyleBackColor = true;
             // 
+            // radCalc
+            // 
+            this.radCalc.AutoSize = true;
+            this.radCalc.Location = new System.Drawing.Point(63, 32);
+            this.radCalc.Name = "radCalc";
+            this.radCalc.Size = new System.Drawing.Size(43, 17);
+            this.radCalc.TabIndex = 1;
+            this.radCalc.TabStop = true;
+            this.radCalc.Text = "Yes";
+            this.radCalc.UseVisualStyleBackColor = true;
+            // 
             // radSaveNo
             // 
             this.radSaveNo.AutoSize = true;
@@ -299,33 +305,83 @@
             this.radSaveNo.Text = "No";
             this.radSaveNo.UseVisualStyleBackColor = true;
             // 
-            // radSaveYes
+            // radSave
             // 
-            this.radSaveYes.AutoSize = true;
-            this.radSaveYes.Location = new System.Drawing.Point(63, 19);
-            this.radSaveYes.Name = "radSaveYes";
-            this.radSaveYes.Size = new System.Drawing.Size(43, 17);
-            this.radSaveYes.TabIndex = 4;
-            this.radSaveYes.TabStop = true;
-            this.radSaveYes.Text = "Yes";
-            this.radSaveYes.UseVisualStyleBackColor = true;
+            this.radSave.AutoSize = true;
+            this.radSave.Location = new System.Drawing.Point(63, 19);
+            this.radSave.Name = "radSave";
+            this.radSave.Size = new System.Drawing.Size(43, 17);
+            this.radSave.TabIndex = 4;
+            this.radSave.TabStop = true;
+            this.radSave.Text = "Yes";
+            this.radSave.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radSaveNo);
-            this.groupBox1.Controls.Add(this.radSaveYes);
-            this.groupBox1.Location = new System.Drawing.Point(493, 81);
+            this.groupBox1.Controls.Add(this.radSave);
+            this.groupBox1.Location = new System.Drawing.Point(431, 23);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 52);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Save";
             // 
+            // grpCFOutput
+            // 
+            this.grpCFOutput.Controls.Add(this.chkPeriodic);
+            this.grpCFOutput.Controls.Add(this.chkTransaction);
+            this.grpCFOutput.Location = new System.Drawing.Point(225, 94);
+            this.grpCFOutput.Name = "grpCFOutput";
+            this.grpCFOutput.Size = new System.Drawing.Size(406, 67);
+            this.grpCFOutput.TabIndex = 7;
+            this.grpCFOutput.TabStop = false;
+            this.grpCFOutput.Text = "Cash Flow Output";
+            // 
+            // chkTransaction
+            // 
+            this.chkTransaction.AutoSize = true;
+            this.chkTransaction.Location = new System.Drawing.Point(33, 34);
+            this.chkTransaction.Name = "chkTransaction";
+            this.chkTransaction.Size = new System.Drawing.Size(93, 17);
+            this.chkTransaction.TabIndex = 0;
+            this.chkTransaction.Text = "Transactional ";
+            this.chkTransaction.UseVisualStyleBackColor = true;
+            // 
+            // chkPeriodic
+            // 
+            this.chkPeriodic.AutoSize = true;
+            this.chkPeriodic.Location = new System.Drawing.Point(248, 34);
+            this.chkPeriodic.Name = "chkPeriodic";
+            this.chkPeriodic.Size = new System.Drawing.Size(64, 17);
+            this.chkPeriodic.TabIndex = 1;
+            this.chkPeriodic.Text = "Periodic";
+            this.chkPeriodic.UseVisualStyleBackColor = true;
+            // 
+            // lstFieldsTxn
+            // 
+            this.lstFieldsTxn.FormattingEnabled = true;
+            this.lstFieldsTxn.Location = new System.Drawing.Point(225, 178);
+            this.lstFieldsTxn.Name = "lstFieldsTxn";
+            this.lstFieldsTxn.Size = new System.Drawing.Size(200, 238);
+            this.lstFieldsTxn.TabIndex = 8;
+            // 
+            // lstFieldsPeriodic
+            // 
+            this.lstFieldsPeriodic.FormattingEnabled = true;
+            this.lstFieldsPeriodic.Location = new System.Drawing.Point(431, 178);
+            this.lstFieldsPeriodic.Name = "lstFieldsPeriodic";
+            this.lstFieldsPeriodic.Size = new System.Drawing.Size(200, 238);
+            this.lstFieldsPeriodic.TabIndex = 9;
+            // 
             // M61CF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 504);
+            this.ClientSize = new System.Drawing.Size(641, 504);
+            this.Controls.Add(this.lstFieldsPeriodic);
+            this.Controls.Add(this.lstFieldsTxn);
+            this.Controls.Add(this.grpCFOutput);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpCalc);
             this.Controls.Add(this.grpScenario);
@@ -346,6 +402,8 @@
             this.grpCalc.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.grpCFOutput.ResumeLayout(false);
+            this.grpCFOutput.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -372,7 +430,12 @@
         private System.Windows.Forms.RadioButton radCalcNo;
         private System.Windows.Forms.RadioButton radCalc;
         private System.Windows.Forms.RadioButton radSaveNo;
-        private System.Windows.Forms.RadioButton radSaveYes;
+        private System.Windows.Forms.RadioButton radSave;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpCFOutput;
+        private System.Windows.Forms.CheckBox chkPeriodic;
+        private System.Windows.Forms.CheckBox chkTransaction;
+        private System.Windows.Forms.ListBox lstFieldsTxn;
+        private System.Windows.Forms.ListBox lstFieldsPeriodic;
     }
 }

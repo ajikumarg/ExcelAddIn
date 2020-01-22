@@ -68,13 +68,24 @@ namespace Excel2016AddIn
 
             int rows = range.Rows.Count;
             int cols = range.Columns.Count;
-            string colname;
+            string name, colname;
+            Excel.Range target;
 
             DataRow row;
 
             for (int c = 1; c <= cols; c++)
             {
-                colname = range.Cells[1, c].Value2;
+                //colname = range.Cells[1, c].Value2;
+                target = range.Cells[1, c];
+                try
+                {
+                    name = ((Excel.Name)target.Name).Name;
+                    colname = name.Substring(name.LastIndexOf(@"!") + 1);
+                }
+                catch (System.Runtime.InteropServices.COMException e)
+                {
+                    colname = target.Value2.ToString();
+                }
                 table.Columns.Add(colname);
             }
 
@@ -88,7 +99,44 @@ namespace Excel2016AddIn
 
             return table;
         }
+        public static void PublishNames()
+        {
+            int iRow = 2;
+            System.Text.RegularExpressions.Regex regEx = new System.Text.RegularExpressions.Regex("M61.Table");
 
+            try
+            {
+                Excel.Worksheet M61InputExp = Globals.ThisAddIn.Application.ActiveWorkbook.Worksheets[1];
+
+                //Add a Sheet to print out the Named Ranges
+                Excel.Worksheet newWorksheet;
+                newWorksheet = WorkbookExtensions.GetWorksheetByName("NamedRanges");
+
+                //Set as Activesheet
+                newWorksheet.Activate();
+
+                //var names = (IEnumerable<Excel.Names>)this.Application.ActiveWorkbook.Names;
+                //var namesfiltered = names.Where(x => x..StartsWith(regEx)).ToList();
+                //var namesfiltered = FilterByM61InputTables(names, regEx);
+
+
+                foreach (Excel.Name name in Globals.ThisAddIn.Application.ActiveWorkbook.Names)
+                {
+                    //Console.WriteLine(String.Format("{0} refers to {1}", name.Name, name.RefersTo));
+                    newWorksheet.Range["A" + iRow].Value2 = String.Format("{0}", name.Name);
+                    iRow++;
+                }
+            }
+            catch (Exception e)
+            {
+                //Application.StatusBar = e.Message;
+                //Application.ActiveWorkbook.Close(false);
+            }
+            finally
+            {
+            }
+
+        }
         #endregion Utilities
 
         public static DataTable GetM61DataDictionary(string rangeDataDictionary)
@@ -150,7 +198,7 @@ namespace Excel2016AddIn
                 if (listTables.Contains(name.Name.ToString()))
                 {
                     table = ExcelRangeToDataTable(name.RefersToRange);
-                    table.TableName = name.Name.ToString();
+                    table.TableName = name.Name;
                     dsSizer.Tables.Add(table);
                 }
             }

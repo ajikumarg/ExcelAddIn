@@ -32,25 +32,50 @@ namespace Excel2016AddIn
 
         public static DataTable GetM61DataDictionary()
         {
-            DataTable dtM61Dict;
+            Dictionary<string, object> m61DictApiResponse = new Dictionary<string, object>();
+            DataTable dtM61Dict=new DataTable("M61DataDictionary");
 
-            string FullFilePath = @"C:\temp\M61DataDictionary.json";
+            string FullFilePath = @"C:\temp\M61DataDictionaryFull.json";
             M61AddInJSONUtils.JSONM61DataDict =  File.ReadAllText(FullFilePath);
-
-            dtM61Dict = JsonConvert.DeserializeObject<DataTable>(M61AddInJSONUtils.JSONM61DataDict);
+            m61DictApiResponse =  JsonConvert.DeserializeObject<Dictionary<string, object>>(M61AddInJSONUtils.JSONM61DataDict);
+            if (Convert.ToBoolean(m61DictApiResponse["Succeeded"]))
+            {
+                //dtM61Dict = JsonConvert.DeserializeObject<DataTable>(M61AddInJSONUtils.JSONM61DataDict);
+                //var response = JsonConvert.DeserializeObject(M61AddInJSONUtils.JSONM61DataDict);
+                dtM61Dict = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(m61DictApiResponse["DataDictionaryList"]));
+            }
             return dtM61Dict;
         }
-        public static void InitAndAddCFParametersToJSON(IDictionary<string, string> Params)
+
+        public static List<string> GetReqSizerTableNames(DataTable m61DataDict) 
+        {
+            List<string> lstTables = new List<string>();
+
+            #region LINQ Query
+            //var reqTables = from names in m61DataDict.AsEnumerable()
+            //                where names["Required"] == "1"
+            //                select names;
+            //foreach (DataRow reqTable in reqTables)
+            //{
+            //    if (!lstTables.Contains(reqTable["NamedRange"].ToString()))
+            //        lstTables.Add(reqTable["NamedRange"].ToString());
+            //}
+            #endregion
+
+            foreach (DataRow dr in m61DataDict.Rows)
+                if (dr["Required"].ToString() == "1" && !lstTables.Contains(dr["NamedRange"].ToString()))
+                    lstTables.Add(dr["NamedRange"].ToString());
+
+            return lstTables;
+        }
+        public static void InitAndAddCFParametersToJSON(IDictionary<string, object> Params)
         {
             M61AddInJSONUtils.JSONM61CFInputs = string.Empty;
-            JSONM61CFInputs += "[";
+            JSONM61CFInputs = "{";
             foreach(string Param in Params.Keys)
             {
-                
-            }
-
-
-
+                JSONM61CFInputs += "\"" + Param.ToString() + "\": " + "\"" + Params[Param].ToString() + "\",";
+            } 
         }
         public static string DataTableToJson(DataTable dt)
         {
@@ -92,12 +117,17 @@ namespace Excel2016AddIn
             }
         }
 
-        public static string SerielizeToJSON(DataTable table)
+        public static void SerielizeDataTableToJSON(DataTable table)
         {
-            string jsonResult = JsonConvert.SerializeObject(table, Formatting.Indented);
-            return jsonResult;
-
+            JSONM61CFInputs += "\"" + table.TableName + "\": ";
+            JSONM61CFInputs+=JsonConvert.SerializeObject(table, Formatting.Indented);
         }
+
+        public static void CompleteJSON()
+        {
+            M61AddInJSONUtils.JSONM61CFInputs += "}";
+        }
+
         public static void WriteJsonToFile(string FullFilePath = @"C:\temp\M61CFRequest.json")
         {
             if (FullFilePath == "")
